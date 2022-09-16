@@ -85,7 +85,7 @@ class TaskUpdate(LoginRequiredMixin, UpdateView):
 class TaskDetail(LoginRequiredMixin, DetailView):
     model = Item
     context_object_name = 'task'
-    template_name = 'base/task.html'
+    template_name = 'app/task.html'
 
 def registerUser(request):
     form = CustomUserCreationForm()
