@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView,FormView,UpdateView,DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import TaskForm
+from .forms import CustomUserCreationForm, TaskForm
 from django.views.generic.detail import DetailView
 
 
@@ -86,3 +86,33 @@ class TaskDetail(LoginRequiredMixin, DetailView):
     model = Item
     context_object_name = 'task'
     template_name = 'base/task.html'
+
+def registerUser(request):
+    form = CustomUserCreationForm()
+    if request.method == "POST":
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            login(request,user)
+            return redirect('list-view')
+        else:
+            print('An error has occured during registration')
+
+    context = {'form':form}
+    return render(request,'app/register.html',context)
+
+def loginUser(request):
+    # if request.user.is_authenticated:
+    #     return redirect('index')
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST['password']
+        user = authenticate(request, username = username,password = password)
+        if user is not None:
+            login(request,user)
+            return redirect('index')
+        else:
+            print('Error')
+    return render(request,'app/login.html')
