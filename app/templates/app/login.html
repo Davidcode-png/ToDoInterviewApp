@@ -1,0 +1,24 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+<h1>Login Page</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    {% for frm in form %}
+    {{frm.label}}
+    <br>    
+    {{frm}}
+    {% endfor %}
+    <br />
+    <br />  
+    <input type = "submit" value="Login"/>
+    <p>Don't have an account, Create one </p>
+    <a href="{% url 'register' %}">Register</a>
+</form>
+
+{% endblock content %}
+
+

@@ -1,0 +1,22 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+<h1>Create Task</h1>
+
+<form method="POST">
+{% csrf_token %}
+{% for frm in form %}
+    {{frm.label}}
+    <br />
+    {{frm}}
+    <br />
+{% endfor %}
+<br />
+<input type='submit' value='Submit'>
+</form>
+
+{% endblock content %}
+
+
+
