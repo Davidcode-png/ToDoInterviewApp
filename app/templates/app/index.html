@@ -15,32 +15,35 @@
        
     </div>
     {% if request.user.is_authenticated %}
-          <a style="color:red; font-size:2rem;" href="{%url 'logoutPage'%}">Logout</a>
+          <a style="color:#F6F7F8; font-size:2rem;" href="{%url 'logoutPage'%}"><u>Logout</u></a>
     {% else %}
-        <a style="color:blue; font-size:2rem;" href="{%url 'login' %}">Login</a> 
+        <a style="color:#ADD8E6; font-size:2.5rem;padding:10px" href="{%url 'login' %}"> <u> Login </u></a> 
     {% endif %}
 </div>
 {% if request.user.is_authenticated %}
-<h1>My ToDo List</h1>
-<h3> <a href="{% url 'create-task' %}">Create Task</a> </h3>
+<h1 style = 'color:white;'>My ToDo List</h1>
+<h3> <a style = 'color:#59D9CA' href="{% url 'create-task' %}"> <u> Create Task  <i class="fa-solid fa-plus"></i></u></a> </h3>
 {% for task in tasks %}
 <p>
     {% if task.complete %}
-     <div class="task-complete-icon"></div>{{task.title}}
+    <div class="task-complete">
+     <div class="task-complete-icon"></div><s> {{task.title}}</s>
+    </div>
     {% else %}   
     {{task.title}}
   
     {% endif %}
-    <a href="{% url 'update-task' task.id %}"> Edit</a>
     &emsp;
-    <a href="{% url 'delete-task' task.id %}"> Delete  </a>
+    <a style = 'color:whitesmoke;' href="{% url 'update-task' task.id %}"> <u> Edit  <i class="fa-solid fa-pen-to-square"></i> </u></a>
     &emsp;
-    <a href="{% url 'task-detail' task.id %}"> View </a>
+    <a style = 'color:whitesmoke;' href="{% url 'delete-task' task.id %}"> <u> Delete <i class="fa-solid fa-trash"></i></u> </a>
+    &emsp;
+    <a style = 'color:whitesmoke;' href="{% url 'task-detail' task.id %}"> <u> View  <i class="fa-solid fa-scroll"></i></u> </a>
 
 
 </p>
 {% endfor %}
-<p>Hii</p>
+<p></p>
 
 {% endif %}
 </div>
